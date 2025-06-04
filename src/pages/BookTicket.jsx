@@ -1,0 +1,1 @@
+export default function BookTicket() { return (<h2 className="text-2xl p-8">Book Your Ticket</h2>); }

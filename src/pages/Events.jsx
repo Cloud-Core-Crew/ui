@@ -1,0 +1,1 @@
+export default function Events() { return (<h2 className="text-2xl p-8">Upcoming Events</h2>); }

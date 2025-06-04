@@ -1,0 +1,1 @@
+export default function Merchandise() { return (<h2 className="text-2xl p-8">Merchandise Store</h2>); }
