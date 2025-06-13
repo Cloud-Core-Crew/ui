@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from '../api/axios';
+import userApi from '../api/userApi';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -9,12 +9,14 @@ export default function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('/login', { email, password });
-      setMessage(`Login successful. Welcome ${res.data.username || 'User'}!`);
-      // Optionally store token:
-      // localStorage.setItem('token', res.data.token);
+      // Fixed the endpoint from '/auth/login' to '/login'
+      const res = await userApi.post('/login', { email, password });
+
+      // Store token and notify user
+      localStorage.setItem('token', res.data.token);
+      setMessage('Login successful. Welcome User!');
     } catch (err) {
-      setMessage('Login failed. Please check your credentials.');
+      setMessage('Login failed. Please try again.');
     }
   };
 
@@ -23,17 +25,17 @@ export default function Login() {
       <h2 className="text-2xl font-bold mb-4">Login</h2>
       <form className="space-y-4" onSubmit={handleLogin}>
         <input
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
           type="email"
+          value={email}
+          onChange={e => setEmail(e.target.value)}
           placeholder="Email"
           className="block w-full p-2 border rounded"
           required
         />
         <input
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
           type="password"
+          value={password}
+          onChange={e => setPassword(e.target.value)}
           placeholder="Password"
           className="block w-full p-2 border rounded"
           required
@@ -42,7 +44,11 @@ export default function Login() {
           Login
         </button>
       </form>
-      {message && <p className="mt-4 text-blue-600">{message}</p>}
+      {message && (
+        <p className={`mt-4 ${message.startsWith('Login failed') ? 'text-red-600' : 'text-green-600'}`}>
+          {message}
+        </p>
+      )}
     </div>
   );
 }

@@ -1,17 +1,14 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Navbar() {
   return (
-    <nav className="bg-black text-white p-4 flex justify-between items-center shadow-md">
-      <div className="text-xl font-bold">PDF Sports</div>
-      <div className="space-x-6">
-        <a href="/" className="hover:text-yellow-400">Home</a>
-        <a href="/events" className="hover:text-yellow-400">Events</a>
-        <a href="/book" className="hover:text-yellow-400">Book Ticket</a>
-        <a href="/shop" className="hover:text-yellow-400">Merchandise</a>
-        <a href="/login" className="hover:text-yellow-400">Login</a>
-        <a href="/register" className="hover:text-yellow-400">Register</a>
-      </div>
+    <nav className="bg-gray-800 text-white p-4 flex space-x-4">
+      <Link to="/" className="hover:underline">Home</Link>
+      <Link to="/login" className="hover:underline">Login</Link>
+      <Link to="/register" className="hover:underline">Register</Link>
+      <Link to="/events" className="hover:underline">Events</Link>
+      <Link to="/my-tickets" className="hover:underline">My Tickets</Link>
     </nav>
   );
 }
